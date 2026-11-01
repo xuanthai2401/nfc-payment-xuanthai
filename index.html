@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08775b">
+  <title>Chuyển khoản Techcombank</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background: #f3f6f5;
+      color: #18332b;
+      font-family: Arial, sans-serif;
+    }
+    main {
+      max-width: 420px;
+      margin: auto;
+      padding: 24px;
+      background: white;
+      border-radius: 20px;
+      text-align: center;
+    }
+    h1 { font-size: 23px; }
+    .account {
+      margin: 24px 0;
+      padding: 18px;
+      background: #edf7f2;
+      border-radius: 14px;
+    }
+    .number {
+      margin: 12px 0;
+      font-size: 25px;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+    button, .bank {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #08775b;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    img {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 16px auto;
+    }
+    .note {
+      color: #62716b;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Chuyển khoản Techcombank</h1>
+
+    <div class="account">
+      <div>Ngân hàng nhận</div>
+      <strong>Techcombank</strong>
+
+      <div class="number" id="account">
+        920355130522
+      </div>
+
+      <button onclick="copyAccount()">
+        Sao chép số tài khoản
+      </button>
+    </div>
+
+    <a class="bank"
+       href="https://dl.vietqr.io/pay?app=tcb">
+      Mở Techcombank
+    </a>
+
+    <h3>Hoặc quét mã QR</h3>
+
+    <img
+      src="https://img.vietqr.io/image/TCB-920355130522-compact2.png"
+      alt="QR Techcombank"
+    >
+
+    <p class="note">
+      Không đặt trước số tiền hoặc nội dung chuyển khoản.
+      Hãy nhập thông tin theo ý bạn trong ứng dụng ngân hàng
+      và kiểm tra người nhận trước khi xác nhận.
+    </p>
+
+    <p id="message" class="note"></p>
+  </main>
+
+  <script>
+    async function copyAccount() {
+      try {
+        await navigator.clipboard.writeText("920355130522");
+        document.getElementById("message").textContent =
+          "Đã sao chép số tài khoản.";
+      } catch (e) {
+        document.getElementById("message").textContent =
+          "Hãy nhấn giữ số tài khoản để sao chép.";
+      }
+    }
+  </script>
+</body>
+</html>
