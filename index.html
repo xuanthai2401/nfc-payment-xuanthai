@@ -230,10 +230,20 @@
   <h2>Hoặc quét mã QR</h2>
 
   <img
+    id="qrImage"
     class="qr"
     src="https://img.vietqr.io/image/TCB-920355130522-compact.png"
     alt="Mã QR Techcombank"
   >
+
+  <button
+    type="button"
+    onclick="saveQR()"
+    style="margin-top: 14px;">
+    Lưu mã QR về điện thoại
+  </button>
+
+  <p id="qrMessage" class="hint" role="status"></p>
 
 <div class="hint" style="margin-top: 24px;">
   Trước khi xác nhận chuyển tiền, hãy kiểm tra tên
