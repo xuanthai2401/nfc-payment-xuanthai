@@ -7,63 +7,6 @@
   <meta name="theme-color" content="#08775b">
   <title>Chuyển khoản Techcombank</title>
 
-    .social-section {
-      margin-top: 28px;
-      padding-top: 20px;
-      border-top: 1px solid #e5ebe7;
-      text-align: center;
-    }
-
-    .social-section h2 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-
-    .social-description {
-      margin: 0 0 18px;
-      color: #63746b;
-      font-size: 12px;
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 18px;
-    }
-
-    .social-link {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 7px;
-      color: #263b32;
-      text-decoration: none;
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .social-icon {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 13px;
-      background: #f3f6f5;
-      transition: transform .2s;
-    }
-
-    .social-icon img {
-      width: 26px;
-      height: 26px;
-      object-fit: contain;
-    }
-
-    .social-link:active .social-icon {
-      transform: scale(.92);
-    }
-  
   <style>
     * { box-sizing: border-box; }
 
@@ -245,11 +188,132 @@
         gap: 9px 3px;
       }
     }
+
+    /* Phần mạng xã hội */
+    .social-section {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid #e5ebe7;
+      text-align: center;
+    }
+
+    .social-section h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .social-description {
+      margin: 0 0 18px;
+      color: #63746b;
+      font-size: 12px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .social-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      color: #263b32;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 13px;
+      background: #f3f6f5;
+      transition: transform .2s;
+    }
+
+    .social-icon img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    .social-link:active .social-icon {
+      transform: scale(.92);
+    }
   </style>
 </head>
 
 <body>
-  
+<main>
+  <h1>Chuyển khoản</h1>
+
+  <section class="account">
+    <div class="account-name">Ngân hàng nhận</div>
+    <h2 style="margin:8px 0">Techcombank</h2>
+    <div class="number">920355130522</div>
+
+    <button onclick="copyAccount()">
+      Sao chép số tài khoản
+    </button>
+
+    <p id="message" role="status"></p>
+  </section>
+
+  <h2>Ngân hàng của bạn</h2>
+
+  <button
+    id="toggleBanks"
+    class="toggle"
+    aria-expanded="false"
+    aria-controls="banks"
+    onclick="toggleBanks()">
+    <span>Chọn ngân hàng để chuyển tiền</span>
+    <span class="arrow">▼</span>
+  </button>
+
+  <div id="banks" class="grid" hidden></div>
+
+  <p class="hint">
+    Chọn ngân hàng để thử mở ứng dụng. Khả năng tự điền
+    thông tin nhận tiền tùy thuộc từng ứng dụng.
+    Nếu không hoạt động, hãy dùng mã QR bên dưới.
+  </p>
+
+  <h2>Hoặc quét mã QR</h2>
+
+  <img
+    id="qrImage"
+    class="qr"
+    src="https://img.vietqr.io/image/TCB-920355130522-compact.png"
+    alt="Mã QR Techcombank">
+
+  <a
+    href="./qr.jpg"
+    download="Ma-QR-Techcombank.jpg"
+    style="display:block; margin-top:14px; padding:14px;
+           border-radius:10px; background:#08775b; color:white;
+           font-size:15px; font-weight:700; text-align:center;
+           text-decoration:none;">
+    Lưu mã QR về điện thoại
+  </a>
+
+  <p class="hint">
+    Nếu ảnh không tự tải xuống, hãy mở ảnh và nhấn giữ để lưu.
+  </p>
+
+  <div class="hint" style="margin-top:24px;">
+    Trước khi xác nhận chuyển tiền, hãy kiểm tra tên
+    người nhận và số tài khoản trên ứng dụng ngân hàng.
+    Không xác nhận nếu thông tin không khớp.
+  </div>
+
+  <!-- Mạng xã hội đặt cuối trang -->
   <section class="social-section">
     <h2>Liên hệ với tôi</h2>
     <p class="social-description">
@@ -313,69 +377,6 @@
       </a>
     </div>
   </section>
-  
-<main>
-  <h1>Chuyển khoản</h1>
-
-  <section class="account">
-    <div class="account-name">Ngân hàng nhận</div>
-    <h2 style="margin:8px 0">Techcombank</h2>
-    <div class="number">920355130522</div>
-
-    <button onclick="copyAccount()">
-      Sao chép số tài khoản
-    </button>
-
-    <p id="message" role="status"></p>
-  </section>
-
-  <h2>Ngân hàng của bạn</h2>
-
-  <button
-    id="toggleBanks"
-    class="toggle"
-    aria-expanded="false"
-    aria-controls="banks"
-    onclick="toggleBanks()">
-    <span>Chọn ngân hàng để chuyển tiền</span>
-    <span class="arrow">▼</span>
-  </button>
-
-  <div id="banks" class="grid" hidden></div>
-
-  <p class="hint">
-    Chọn ngân hàng để thử mở ứng dụng. Khả năng tự điền
-    thông tin nhận tiền tùy thuộc từng ứng dụng.
-    Nếu không hoạt động, hãy dùng mã QR bên dưới.
-  </p>
-
-  <h2>Hoặc quét mã QR</h2>
-
-  <img
-    id="qrImage"
-    class="qr"
-    src="https://img.vietqr.io/image/TCB-920355130522-compact.png"
-    alt="Mã QR Techcombank"
-  >
-
-<a
-  href="./qr.jpg"
-  download="Ma-QR-Techcombank.jpg"
-  style="display:block; margin-top:14px; padding:14px;
-         border-radius:10px; background:#08775b; color:white;
-         font-size:15px; font-weight:700; text-align:center;
-         text-decoration:none;">
-  Lưu mã QR về điện thoại
-</a>
-
-  <p id="qrMessage" class="hint" role="status"></p>
-
-<div class="hint" style="margin-top: 24px;">
-  Trước khi xác nhận chuyển tiền, hãy kiểm tra tên
-  người nhận và số tài khoản trên ứng dụng ngân hàng.
-  Không xác nhận nếu thông tin không khớp.
-</div>
-
 </main>
 
 <script>
@@ -452,12 +453,12 @@
       if (!id || !name) return;
 
       const link = document.createElement("a");
-link.className = "bank";
-link.href =
-  "https://dl.vietqr.io/pay?app=" +
-  encodeURIComponent(id) +
-  "&ba=" +
-  encodeURIComponent(ACCOUNT + "@" + RECEIVER_BANK);
+      link.className = "bank";
+      link.href =
+        "https://dl.vietqr.io/pay?app=" +
+        encodeURIComponent(id) +
+        "&ba=" +
+        encodeURIComponent(ACCOUNT + "@" + RECEIVER_BANK);
       link.setAttribute("aria-label", "Mở " + name);
 
       const logo = document.createElement("div");
@@ -524,7 +525,6 @@ link.href =
   }
 
   loadBanks();
-  
 </script>
 </body>
 </html>
