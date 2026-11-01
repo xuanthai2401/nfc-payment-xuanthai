@@ -58,18 +58,15 @@
     }
 
     button {
+      width: 100%;
+      padding: 14px;
       border: 0;
       border-radius: 10px;
-      padding: 13px;
       background: #08775b;
       color: white;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
-    }
-
-    .copy-button {
-      width: 100%;
     }
 
     #message {
@@ -78,10 +75,32 @@
       color: #52685e;
     }
 
+    .toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .arrow {
+      font-size: 18px;
+      transition: transform .2s;
+    }
+
+    .toggle[aria-expanded="true"] .arrow {
+      transform: rotate(180deg);
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 15px 5px;
+      gap: 12px 5px;
+      margin-top: 14px;
+    }
+
+    .grid[hidden] {
+      display: none;
     }
 
     .bank {
@@ -89,7 +108,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       gap: 6px;
       padding: 7px 1px;
       border: 1px solid #e5ebe7;
@@ -99,7 +117,6 @@
       text-decoration: none;
       text-align: center;
       overflow-wrap: anywhere;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .bank:active {
@@ -147,6 +164,16 @@
       line-height: 1.5;
     }
 
+    .warning {
+      margin-top: 24px;
+      padding: 13px;
+      background: #fff7e5;
+      border-radius: 10px;
+      color: #594721;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
     @media (max-width: 350px) {
       .logo {
         width: 32px;
@@ -158,7 +185,7 @@
       }
 
       .grid {
-        gap: 10px 3px;
+        gap: 9px 3px;
       }
     }
   </style>
@@ -173,22 +200,31 @@
     <h2 style="margin:8px 0">Techcombank</h2>
     <div class="number">920355130522</div>
 
-    <button class="copy-button" onclick="copyAccount()">
+    <button onclick="copyAccount()">
       Sao chép số tài khoản
     </button>
 
-    <p id="message"></p>
+    <p id="message" role="status"></p>
   </section>
 
-  <h2>Chọn ngân hàng của bạn</h2>
+  <h2>Ngân hàng của bạn</h2>
 
-  <div id="banks" class="grid">
-    <p class="hint">Đang tải danh sách ngân hàng...</p>
-  </div>
+  <button
+    id="toggleBanks"
+    class="toggle"
+    aria-expanded="false"
+    aria-controls="banks"
+    onclick="toggleBanks()">
+    <span>Chọn ngân hàng để chuyển tiền</span>
+    <span class="arrow">⌄</span>
+  </button>
+
+  <div id="banks" class="grid" hidden></div>
 
   <p class="hint">
-    Chọn ngân hàng để thử mở ứng dụng. Nếu không mở được,
-    hãy sử dụng mã QR bên dưới.
+    Chọn ngân hàng để thử mở ứng dụng. Khả năng tự điền
+    thông tin nhận tiền tùy thuộc từng ứng dụng.
+    Nếu không hoạt động, hãy dùng mã QR bên dưới.
   </p>
 
   <h2>Hoặc quét mã QR</h2>
@@ -198,16 +234,25 @@
     src="https://img.vietqr.io/image/TCB-920355130522-compact.png"
     alt="Mã QR Techcombank"
   >
+
+  <div class="warning">
+    Trước khi xác nhận chuyển tiền, hãy kiểm tra tên
+    người nhận và số tài khoản trên ứng dụng ngân hàng.
+    Không xác nhận nếu thông tin không khớp.
+  </div>
 </main>
 
 <script>
+  const ACCOUNT = "920355130522";
+  const RECEIVER_BANK = "TCB";
+
   const fallbackBanks = [
     ["icb", "VietinBank iPay"],
     ["bidv", "BIDV SmartBanking"],
     ["ocb", "OCB OMNI"],
     ["acb", "ACB ONE"],
     ["mb", "MB Bank"],
-    ["vcb", "Vietcombank"],
+    ["vcb", "VCB Digibank"],
     ["tcb", "Techcombank"],
     ["vpb", "VPBank NEO"],
     ["vib-2", "MyVIB"],
@@ -239,8 +284,18 @@
     ["cimb", "CIMB Octo"]
   ];
 
+  function toggleBanks() {
+    const grid = document.getElementById("banks");
+    const button = document.getElementById("toggleBanks");
+    const opening = grid.hidden;
+
+    grid.hidden = !opening;
+    button.setAttribute("aria-expanded", String(opening));
+  }
+
   function initials(name) {
-    return name.replace(/[^A-Za-zÀ-ỹ0-9 ]/g, "")
+    return name
+      .replace(/[^A-Za-zÀ-ỹ0-9 ]/g, "")
       .split(/\s+/)
       .filter(Boolean)
       .slice(0, 2)
@@ -262,8 +317,12 @@
 
       const link = document.createElement("a");
       link.className = "bank";
-      link.href = bank.deeplink ||
-        "https://dl.vietqr.io/pay?app=" + encodeURIComponent(id);
+      link.href =
+        "https://dl.vietqr.io/pay?app=" +
+        encodeURIComponent(id) +
+        "&ba=" +
+        encodeURIComponent(ACCOUNT + "@" + RECEIVER_BANK);
+
       link.setAttribute("aria-label", "Mở " + name);
 
       const logo = document.createElement("div");
@@ -274,10 +333,12 @@
         img.src = logoUrl;
         img.alt = "";
         img.loading = "lazy";
+
         img.onerror = () => {
           logo.replaceChildren();
           logo.textContent = initials(name);
         };
+
         logo.appendChild(img);
       } else {
         logo.textContent = initials(name);
@@ -310,10 +371,7 @@
       renderBanks(
         fallbackBanks.map(([appId, appName]) => ({
           appId,
-          appName,
-          deeplink:
-            "https://dl.vietqr.io/pay?app=" +
-            encodeURIComponent(appId)
+          appName
         }))
       );
     }
@@ -321,12 +379,12 @@
 
   async function copyAccount() {
     try {
-      await navigator.clipboard.writeText("920355130522");
+      await navigator.clipboard.writeText(ACCOUNT);
       document.getElementById("message").textContent =
         "Đã sao chép số tài khoản.";
     } catch (error) {
       document.getElementById("message").textContent =
-        "Không sao chép được tự động. Hãy nhấn giữ số tài khoản.";
+        "Không sao chép tự động được. Hãy nhấn giữ số tài khoản.";
     }
   }
 
