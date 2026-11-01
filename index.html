@@ -316,13 +316,19 @@
 
       if (!id || !name) return;
 
+      
       const link = document.createElement("a");
       link.className = "bank";
-      link.href =
-        "https://dl.vietqr.io/pay?app=" +
-        encodeURIComponent(id) +
-        "&ba=" +
-        encodeURIComponent(ACCOUNT + "@" + RECEIVER_BANK);
+
+      const params = new URLSearchParams({
+        app: id,
+        ba: ACCOUNT + "@" + RECEIVER_BANK,
+        am: "0",
+        tn: "Tien den roi ne",
+        url: window.location.href
+      });
+
+      link.href = "https://dl.vietqr.io/pay?" + params.toString();
 
       link.setAttribute("aria-label", "Mở " + name);
 
