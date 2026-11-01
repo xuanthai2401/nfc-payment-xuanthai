@@ -7,6 +7,63 @@
   <meta name="theme-color" content="#08775b">
   <title>Chuyển khoản Techcombank</title>
 
+    .social-section {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid #e5ebe7;
+      text-align: center;
+    }
+
+    .social-section h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .social-description {
+      margin: 0 0 18px;
+      color: #63746b;
+      font-size: 12px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .social-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      color: #263b32;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 13px;
+      background: #f3f6f5;
+      transition: transform .2s;
+    }
+
+    .social-icon img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    .social-link:active .social-icon {
+      transform: scale(.92);
+    }
+  
   <style>
     * { box-sizing: border-box; }
 
@@ -192,6 +249,71 @@
 </head>
 
 <body>
+  
+  <section class="social-section">
+    <h2>Liên hệ với tôi</h2>
+    <p class="social-description">
+      Kết nối với tôi qua mạng xã hội
+    </p>
+
+    <div class="social-links">
+      <a class="social-link"
+         href="https://www.facebook.com/@xuanthai2401"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Facebook">
+        <span class="social-icon">
+          <img src="https://cdn.simpleicons.org/facebook/1877F2"
+               alt="Facebook">
+        </span>
+        <span>Facebook</span>
+      </a>
+
+      <a class="social-link"
+         href="https://zaloapp.com/qr/p/fd8202pwdp1f"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Zalo">
+        <span class="social-icon">
+          <img src="https://cdn.simpleicons.org/zalo/0068FF"
+               alt="Zalo">
+        </span>
+        <span>Zalo</span>
+      </a>
+
+      <a class="social-link"
+         href="https://m.me/xuanthai2401"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Messenger">
+        <span class="social-icon">
+          <img src="https://cdn.simpleicons.org/messenger/0866FF"
+               alt="Messenger">
+        </span>
+        <span>Messenger</span>
+      </a>
+
+      <a class="social-link"
+         href="https://www.tiktok.com/@x.thai2401"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="TikTok">
+        <span class="social-icon">
+          <img src="https://cdn.simpleicons.org/tiktok/000000"
+               alt="TikTok">
+        </span>
+        <span>TikTok</span>
+      </a>
+
+      <a class="social-link"
+         href="https://instagram.com/xnth.in_24"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Instagram">
+        <span class="social-icon">
+          <img src="https://cdn.simpleicons.org/instagram/E4405F"
+               alt="Instagram">
+        </span>
+        <span>Instagram</span>
+      </a>
+    </div>
+  </section>
+  
 <main>
   <h1>Chuyển khoản</h1>
 
@@ -236,12 +358,15 @@
     alt="Mã QR Techcombank"
   >
 
-  <button
-    type="button"
-    onclick="saveQR()"
-    style="margin-top: 14px;">
-    Lưu mã QR về điện thoại
-  </button>
+<a
+  href="./qr.jpg"
+  download="Ma-QR-Techcombank.jpg"
+  style="display:block; margin-top:14px; padding:14px;
+         border-radius:10px; background:#08775b; color:white;
+         font-size:15px; font-weight:700; text-align:center;
+         text-decoration:none;">
+  Lưu mã QR về điện thoại
+</a>
 
   <p id="qrMessage" class="hint" role="status"></p>
 
@@ -396,23 +521,6 @@ link.href =
       document.getElementById("message").textContent =
         "Không sao chép tự động được. Hãy nhấn giữ số tài khoản.";
     }
-  }
-
-  async function saveQR() {
-  const image = document.getElementById("qrImage");
-  const message = document.getElementById("qrMessage");
-
-  const newTab = window.open("about:blank", "_blank");
-
-  if (newTab) {
-    newTab.location.href = image.src;
-    message.textContent =
-      "Đã mở mã QR. Hãy nhấn giữ ảnh rồi chọn Tải hình ảnh xuống.";
-  } else {
-    message.textContent =
-      "Trình duyệt đã chặn cửa sổ mới. Hãy nhấn giữ mã QR bên dưới để lưu ảnh.";
-    image.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
   }
 
   loadBanks();
