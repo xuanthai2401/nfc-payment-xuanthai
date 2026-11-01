@@ -398,7 +398,38 @@ link.href =
     }
   }
 
+  async function saveQR() {
+    const message = document.getElementById("qrMessage");
+
+    try {
+      const response = await fetch(
+        "https://img.vietqr.io/image/TCB-920355130522-compact.png"
+      );
+
+      if (!response.ok) {
+        throw new Error("Không tải được mã QR");
+      }
+
+      const blob = await response.blob();
+      const imageUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = imageUrl;
+      link.download = "Ma-QR-Techcombank.png";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => URL.revokeObjectURL(imageUrl), 1000);
+      message.textContent = "Đã yêu cầu tải ảnh mã QR.";
+    } catch (error) {
+      message.textContent =
+        "Không tải tự động được. Hãy nhấn giữ mã QR để lưu ảnh.";
+    }
+  }
+
   loadBanks();
+  
 </script>
 </body>
 </html>
