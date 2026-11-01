@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -265,6 +264,34 @@
     <p id="message" role="status"></p>
   </section>
 
+  <h2>Mã QR chuyển khoản</h2>
+
+  <img
+    id="qrImage"
+    class="qr"
+    src="./qrcode.jpg"
+    alt="Mã QR Techcombank" onerror="this.alt='Không tải được ảnh QR. Kiểm tra file qrcode.jpg trên GitHub.'; this.style.minHeight='120px'; this.style.border='1px dashed #cbd5d0';">
+
+  <a
+    href="./qrcode.jpg"
+    download="Ma-QR-Techcombank.jpg"
+    style="display:block; margin-top:14px; padding:14px;
+           border-radius:10px; background:#08775b; color:white;
+           font-size:15px; font-weight:700; text-align:center;
+           text-decoration:none;">
+    Lưu mã QR về điện thoại
+  </a>
+
+  <p class="hint">
+    Nếu ảnh không tự tải xuống, hãy mở ảnh rồi nhấn giữ để lưu vào điện thoại.
+  </p>
+
+  <div class="hint" style="margin-top:24px;">
+    Trước khi xác nhận chuyển tiền, hãy kiểm tra tên
+    người nhận và số tài khoản trên ứng dụng ngân hàng.
+    Không xác nhận nếu thông tin không khớp.
+  </div>
+
   <h2>Ngân hàng của bạn</h2>
 
   <button
@@ -280,38 +307,9 @@
   <div id="banks" class="grid" hidden></div>
 
   <p class="hint">
-    Chọn ngân hàng để thử mở ứng dụng. Khả năng tự điền
-    thông tin nhận tiền tùy thuộc từng ứng dụng.
-    Nếu không hoạt động, hãy dùng mã QR bên dưới.
+    Sau khi lưu mã QR, chọn ngân hàng bạn đang dùng để mở ứng dụng.
+    Trong ứng dụng ngân hàng, chọn quét QR từ thư viện ảnh nếu được hỗ trợ.
   </p>
-
-  <h2>Hoặc quét mã QR</h2>
-
-  <img
-    id="qrImage"
-    class="qr"
-    src="https://img.vietqr.io/image/TCB-920355130522-compact.png"
-    alt="Mã QR Techcombank">
-
-  <a
-    href="./qrcode.jpg"
-    download="Ma-QR-Techcombank.jpg"
-    style="display:block; margin-top:14px; padding:14px;
-           border-radius:10px; background:#08775b; color:white;
-           font-size:15px; font-weight:700; text-align:center;
-           text-decoration:none;">
-    Lưu mã QR về điện thoại
-  </a>
-
-  <p class="hint">
-    Nếu ảnh không tự tải xuống, hãy mở ảnh và nhấn giữ để lưu.
-  </p>
-
-  <div class="hint" style="margin-top:24px;">
-    Trước khi xác nhận chuyển tiền, hãy kiểm tra tên
-    người nhận và số tài khoản trên ứng dụng ngân hàng.
-    Không xác nhận nếu thông tin không khớp.
-  </div>
 
   <!-- Mạng xã hội đặt cuối trang -->
   <section class="social-section">
